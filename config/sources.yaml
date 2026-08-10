@@ -1,0 +1,13 @@
+arxiv:
+  categories:
+    - cs.AI
+    - cs.CL
+  max_results: 100
+
+rss:
+  feeds:
+    - url: "https://vgel.me/atom.xml" # Placeholder or actual rss
+    - url: "https://simonwillison.net/atom/everything/"
+
+github_trending:
+  language: python

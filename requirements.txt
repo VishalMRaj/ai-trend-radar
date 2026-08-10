@@ -1,0 +1,11 @@
+feedparser
+beautifulsoup4
+requests
+pydantic
+langchain
+langchain-google-vertexai
+langgraph
+numpy
+pytest
+python-dotenv
+pyyaml
