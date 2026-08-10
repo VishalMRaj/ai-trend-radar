@@ -31,6 +31,7 @@ jobs:
         # If using a cloud provider API, set it here in repository secrets
         # GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
         # OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         PYTHONPATH: .
       run: |
         # Optional: Setup GCP auth if using Vertex AI

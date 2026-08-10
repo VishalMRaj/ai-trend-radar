@@ -7,6 +7,11 @@ from langchain_core.embeddings import FakeEmbeddings
 from langchain_core.language_models.fake import FakeListLLM
 
 try:
+    from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
+except ImportError:
+    pass
+
+try:
     from langchain_google_vertexai import VertexAI, VertexAIEmbeddings
 except ImportError:
     pass
@@ -25,9 +30,28 @@ def load_config(path: str) -> dict:
         return yaml.safe_load(f)
 
 def get_llm_and_embedder():
-    # Attempt to use Vertex AI, fallback to a fake one for testing if not configured
+    # 1. First try checking if GEMINI_API_KEY is available (Google Generative AI)
+    gemini_key = os.environ.get("GEMINI_API_KEY")
+    if gemini_key:
+        try:
+            print("GEMINI_API_KEY detected. Using ChatGoogleGenerativeAI...")
+            llm = ChatGoogleGenerativeAI(
+                model="gemini-1.5-flash",
+                temperature=0,
+                google_api_key=gemini_key
+            )
+            embedder = GoogleGenerativeAIEmbeddings(
+                model="models/text-embedding-004",
+                google_api_key=gemini_key
+            )
+            llm.invoke("test")
+            return llm, embedder
+        except Exception as e:
+            print(f"Error initializing Google Generative AI: {e}")
+
+    # 2. Next try Vertex AI
     try:
-        # VertexAI looks for GOOGLE_APPLICATION_CREDENTIALS or default credentials
+        print("Attempting to use Vertex AI...")
         llm = VertexAI(model_name="gemini-1.5-flash", temperature=0)
         embedder = VertexAIEmbeddings(model_name="textembedding-gecko@003")
 
@@ -36,10 +60,12 @@ def get_llm_and_embedder():
         return llm, embedder
     except Exception as e:
         print(f"Vertex AI not configured or error initializing: {e}")
-        print("Falling back to Fake LLM and Embedder for demonstration.")
-        llm = FakeListLLM(responses=["Fake classification/summary response."] * 100)
-        embedder = FakeEmbeddings(size=768)
-        return llm, embedder
+
+    # 3. Fallback to Fake LLM for local testing
+    print("Falling back to Fake LLM and Embedder for demonstration.")
+    llm = FakeListLLM(responses=["Fake classification/summary response."] * 100)
+    embedder = FakeEmbeddings(size=768)
+    return llm, embedder
 
 def main():
     print("Starting AI Trend Radar Pipeline...")

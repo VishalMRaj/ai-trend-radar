@@ -9,3 +9,4 @@ numpy
 pytest
 python-dotenv
 pyyaml
+langchain-google-genai
