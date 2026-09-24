@@ -1,7 +1,6 @@
 feedparser
 beautifulsoup4
 requests
-pydantic
 langchain
 langchain-google-vertexai
 langgraph
@@ -10,3 +9,5 @@ pytest
 python-dotenv
 pyyaml
 langchain-google-genai
+jev
+pydantic

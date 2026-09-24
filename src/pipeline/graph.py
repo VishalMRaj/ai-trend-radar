@@ -7,6 +7,7 @@ from src.connectors.base import Item
 from src.pipeline.dedup import run_dedup
 from src.pipeline.classify import run_classify
 from src.pipeline.score import run_score
+from src.pipeline.filter import run_filter
 from src.pipeline.summarize import run_summarize
 
 class GraphState(TypedDict):
@@ -25,12 +26,14 @@ def create_pipeline() -> StateGraph:
     workflow.add_node("dedup", run_dedup)
     workflow.add_node("classify", run_classify)
     workflow.add_node("score", run_score)
+    workflow.add_node("filter", run_filter)
     workflow.add_node("summarize", run_summarize)
 
     workflow.add_edge(START, "dedup")
     workflow.add_edge("dedup", "classify")
     workflow.add_edge("classify", "score")
-    workflow.add_edge("score", "summarize")
+    workflow.add_edge("score", "filter")
+    workflow.add_edge("filter", "summarize")
     workflow.add_edge("summarize", END)
 
     return workflow.compile()
