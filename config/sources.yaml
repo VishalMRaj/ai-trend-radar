@@ -1,13 +1,19 @@
-arxiv:
-  categories:
-    - cs.AI
-    - cs.CL
-  max_results: 100
-
 rss:
   feeds:
-    - url: "https://vgel.me/atom.xml" # Placeholder or actual rss
+    - url: "https://eugeneyan.com/rss/"
+    - url: "https://hamel.dev/index.xml"
     - url: "https://simonwillison.net/atom/everything/"
+    - url: "https://engineering.ramp.com/feed"
+    - url: "https://github.com/DS4SD/docling/releases.atom"
+    - url: "https://github.com/Unstructured-IO/unstructured/releases.atom"
+    - url: "https://cloud.google.com/blog/topics/architecture/feed"
+    - url: "https://github.com/openai/openai-cookbook/commits/main.atom"
+    - url: "https://github.com/anthropics/anthropic-cookbook/commits/main.atom"
+    - url: "https://medium.com/feed/brexeng"
+    - url: "https://stripe.com/blog/feed.rss"
+    - url: "https://deepmind.google/blog/rss.xml"
+    - url: "https://doordash.engineering/feed/"
+    - url: "https://www.uber.com/en-US/blog/engineering/rss/"
 
 github_trending:
   language: python
